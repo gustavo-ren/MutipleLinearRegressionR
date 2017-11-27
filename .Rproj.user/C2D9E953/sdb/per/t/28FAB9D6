@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(readr)\nlibrary(caTools)\n\n#Data import\ndataset <- read.csv(\"50_Startups.csv\")\n#Taking care of categorical string data\ndataset$State = factor(dataset$State,\n                       levels = c(\"New York\", \"California\", \"Florida\"),\n                       labels = c(1, 2, 3))\n#Setting seed\nset.seed(123)\n\n#Spliting dataset based on the dependent variable\nsplit <- sample.split(dataset$Profit, SplitRatio = 0.8)\n\ntrainingSet <- subset(dataset, split == TRUE)\ntestSet <- subset(dataset, split == FALSE)\n\n#The . means \"all the independent variables\"\nregression = lm(formula = Profit ~ .,data = trainingSet)\n\n#The lower the p-value the more statistically significant the independent variable\n#It can be check by the amount of stars in Signif. codes, more stars more significant\nsummary(regression)\n\ny_pred = predict(regression, newdata = testSet)\nView(y_pred)\n\n#Creating a new regressions to compare the independent variables\nregression2 = lm(formula = Profit ~ R.D.Spend, data = trainingSet)\nsummary(regression2)\n\ny_pred2 = predict(regression2, newdata = testSet)\nView(y_pred2)\n\nregression3 = lm(formula = Profit ~ Administration + Marketing.Spend,\n                 data = trainingSet)\nsummary(regression3)\n\ny_pred3 = predict(regression3, newdata = testSet)\nView(y_pred3)\n\nregression4 = lm(formula = Profit ~ R.D.Spend + Marketing.Spend,\n                 data = trainingSet)\nsummary(regression4)\n\ny_pred4 = predict(regression4, newdata = testSet)\nView(y_pred4)\n\nView(testSet)\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    "created" : 1511807374519.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3958982893",
+    "id" : "28FAB9D6",
+    "lastKnownWriteTime" : 1511820081,
+    "last_content_update" : 1511820081571,
+    "path" : "~/R Projects/MutipleLinearRegressionR/MutipleLinearRegressionR.R",
+    "project_path" : "MutipleLinearRegressionR.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
